@@ -1,3 +1,3 @@
 # Processing Sketches
 
-- **hex**: Filling the screen with random colored octagons.
+- **[hex](https://github.com/madc/processing-misc/tree/master/hex)**: Filling the screen with random colored octagons.
