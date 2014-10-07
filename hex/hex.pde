@@ -69,7 +69,7 @@ void update() {
 }
 
 /**
- * Creates a new hexagon-opbject around a given center.
+ * Creates a new hexagon-object around a given center.
  */
 Hexagon addHexagon(PVector center) {
 	ArrayList<PVector> p = new ArrayList<PVector>();
