@@ -83,9 +83,12 @@ void draw() {
   		
                 pushMatrix();
 
-                translate(0,0,t.c);
-                
-  		triangle(t.p1.x, t.p1.y, t.p2.x, t.p2.y, t.p3.x, t.p3.y);
+                //translate(0,0,t.c);
+  		//triangle(t.p1.x, t.p1.y, t.p2.x, t.p2.y, t.p3.x, t.p3.y);
+
+                // DIDN't FIND ANY FAST WAY TO 'EXTRUDE' TRIANGLE SHAPES.. SO, BOXES:
+                translate(t.p1.x, t.p1.y);
+                box(sideWidth, sideWidth, t.c);
   
                 popMatrix();
 
