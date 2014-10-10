@@ -1,6 +1,6 @@
 # hex
 
-Simple processing sketch, filling the screen with random colored octagons.
+Simple processing sketch, filling the screen with random colored hexagon.
 
 ![Screenshot](https://raw.githubusercontent.com/madc/processing-misc/master/hex/hex-000032.png)
 
