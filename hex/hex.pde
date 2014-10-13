@@ -10,8 +10,10 @@ public class Hexagon {
 	}
 }
 
-ArrayList<Hexagon> hexagons;
-final int sideWidth = 10;
+ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
+
+// The length of a side / radius of the hexagon
+final int sideLength = 20;
 
 int cols;
 int rows;
@@ -26,14 +28,19 @@ void draw() {
 	background(0);
 
 	for(int i = 0; i < hexagons.size(); i++) {
-		Hexagon h = hexagons.get(i);
+		Hexagon hexagon = hexagons.get(i);
 		
-		stroke(h.c);
-		fill(h.c);
+		if(isInside(hexagon, new PVector(mouseX, mouseY))) {
+			stroke(222);
+			fill(222);
+		} else {
+			stroke(hexagon.c);
+			fill(hexagon.c);
+		}
 		
 	    beginShape();
-	    for (int j=0; j<6; j++) {
-			vertex(h.p.get(j).x, h.p.get(j).y);
+	    for (int j=0; j<hexagon.p.size(); j++) {
+			vertex(hexagon.p.get(j).x, hexagon.p.get(j).y);
 	    }
 	    endShape(CLOSE);
 	}
@@ -43,22 +50,20 @@ void draw() {
  * Fills the ArrayList with hexagons
  */
 void update() {
-	float hex_width = 2*sideWidth;
-	float hex_height = 2*((sqrt(3)/2)*sideWidth);
-	
-	hexagons = new ArrayList<Hexagon>();
-	
+	float hexagonWidth = 2*sideLength;
+	float hexagonHeight = 2*((sqrt(3)/2)*sideLength);
+		
 	cols = 0;
-	while((cols-1)*(hex_width+sideWidth) < width) {		
+	while((cols-1)*(hexagonWidth+sideLength) < width) {		
 		rows = 0;
-		while((rows-1)*(hex_height/2) < height) {
-			float posLeft = cols*(hex_width+sideWidth);
+		while((rows-1)*(hexagonHeight/2) < height) {
+			float posLeft = cols*(hexagonWidth+sideLength);
 			
 			if(rows%2 == 0) {
-				posLeft += sideWidth*1.5;
+				posLeft += sideLength*1.5;
 			}
 			
-			Hexagon hexagon = addHexagon(new PVector(posLeft, rows*(hex_height/2)));
+			Hexagon hexagon = addHexagon(new PVector(posLeft, rows*(hexagonHeight/2)));
 			hexagons.add(hexagon);
 			
 			rows++;
@@ -76,7 +81,7 @@ Hexagon addHexagon(PVector center) {
 		
 	for (int i = 0; i < 6; i++) {
 		float angle = PI*i/3;
-		p.add(new PVector(center.x + cos(angle) * (sideWidth), center.y + sin(angle) * (sideWidth)));
+		p.add(new PVector(center.x+cos(angle)*sideLength, center.y+sin(angle)*sideLength));
     }
 	
 	Hexagon hexagon = new Hexagon(center, p);
@@ -85,6 +90,15 @@ Hexagon addHexagon(PVector center) {
 	hexagon.c = color(35 + rand, 37 + rand, 39 + rand);
 	
 	return hexagon;
+}
+
+/**
+ *  Determine, if given coordinates are inside a given hexagon
+ *	tba.
+ */
+boolean isInside(Hexagon hexagon, PVector p) {	
+	
+	return false;
 }
 
 void keyPressed() {
