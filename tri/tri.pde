@@ -27,9 +27,14 @@ void draw() {
 		
 	for(int i = 0; i < triangles.size(); i++) {
 		Triangle triangle = triangles.get(i);
-	
-		stroke(triangle.c);
-		fill(triangle.c);
+		
+		if(isInside(triangle, new PVector(mouseX, mouseY))) {
+			stroke(222);
+			fill(222);
+		} else {
+			stroke(triangle.c);
+			fill(triangle.c);
+		}
 	
 	    beginShape();
 	    for (int j=0; j<triangle.p.size(); j++) {
@@ -99,11 +104,13 @@ Triangle addTriangle(PVector center, boolean mirror) {
  *  Determine, if given coordinates are inside a given triangle
  *	http://stackoverflow.com/a/13301035/709769
  */
-boolean isInside(Triangle t, PVector p) {
-	float alpha = ((t.p.get(2).y - t.p.get(3).y)*(p.x - t.p.get(3).x) + (t.p.get(3).x - t.p.get(2).x)*(p.y - t.p.get(3).y)) /
-	        ((t.p.get(2).y - t.p.get(3).y)*(t.p.get(1).x - t.p.get(3).x) + (t.p.get(3).x - t.p.get(2).x)*(t.p.get(1).y - t.p.get(3).y));
-	float beta = ((t.p.get(3).y - t.p.get(1).y)*(p.x - t.p.get(3).x) + (t.p.get(1).x - t.p.get(3).x)*(p.y - t.p.get(3).y)) /
-	       ((t.p.get(2).y - t.p.get(3).y)*(t.p.get(1).x - t.p.get(3).x) + (t.p.get(3).x - t.p.get(2).x)*(t.p.get(1).y - t.p.get(3).y));
+boolean isInside(Triangle triangle, PVector p) {
+	float alpha = ((triangle.p.get(1).y - triangle.p.get(2).y)*(p.x - triangle.p.get(2).x) + (triangle.p.get(2).x - triangle.p.get(1).x)*(p.y - triangle.p.get(2).y)) /
+	        ((triangle.p.get(1).y - triangle.p.get(2).y)*(triangle.p.get(0).x - triangle.p.get(2).x) + (triangle.p.get(2).x - triangle.p.get(1).x)*(triangle.p.get(0).y - triangle.p.get(2).y));
+	
+	float beta = ((triangle.p.get(2).y - triangle.p.get(0).y)*(p.x - triangle.p.get(2).x) + (triangle.p.get(0).x - triangle.p.get(2).x)*(p.y - triangle.p.get(2).y)) /
+	       ((triangle.p.get(1).y - triangle.p.get(2).y)*(triangle.p.get(0).x - triangle.p.get(2).x) + (triangle.p.get(2).x - triangle.p.get(1).x)*(triangle.p.get(0).y - triangle.p.get(2).y));
+	
 	float gamma = 1.0f - alpha - beta;
 
 	return (alpha > 0 && beta > 0 && gamma > 0);
