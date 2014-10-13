@@ -10,12 +10,9 @@ public class Rhombus {
 	}
 }
 
-ArrayList<Rhombus> rhombus;
-final int sideWidth = 10;
-float rho_dia = sideWidth*sqrt(2);
+ArrayList<Rhombus> rhombus = new ArrayList<Rhombus>();
 
-int cols;
-int rows;
+final int sideLength = 10;
 
 void setup() {
 	size(800, 600, P2D);
@@ -29,8 +26,13 @@ void draw() {
 	for(int i = 0; i < rhombus.size(); i++) {
 		Rhombus rho = rhombus.get(i);
 		
-		stroke(rho.c);
-		fill(rho.c);
+		if(isInside(rho, new PVector(mouseX, mouseY))) {
+			stroke(222);
+			fill(222);
+		} else {
+			stroke(rho.c);
+			fill(rho.c);
+		}
 		
 	    beginShape();
 	    for (int j=0; j<rho.p.size(); j++) {
@@ -43,23 +45,22 @@ void draw() {
 /**
  * Fills the ArrayList with rhombus
  */
-void update() {	
-	rhombus = new ArrayList<Rhombus>();
+void update() {
+	float diameter = sideLength*sqrt(2);
+	
+	int cols = 0;
+	int rows;
 
-	/*Rhombus rho = addRhombus(new PVector(100, 100));
-	rhombus.add(rho);*/
-
-	cols = 0;
-	while((cols-1.5)*rho_dia < width) {
+	while((cols-1.5)*diameter < width) {
 		rows = 0;
-		while((rows-1)*(rho_dia/2) < height) {
-			float posLeft = cols*rho_dia;
+		while((rows-1)*(diameter/2) < height) {
+			float posLeft = cols*diameter;
 
 			if(rows%2 == 0) {
-				posLeft -= rho_dia*1.5;
+				posLeft -= diameter*1.5;
 			}
 
-			Rhombus rho = addRhombus(new PVector(posLeft, rows*(rho_dia/2)));
+			Rhombus rho = addRhombus(new PVector(posLeft, rows*(diameter/2)));
 			rhombus.add(rho);
 
 			rows++;
@@ -75,11 +76,11 @@ void update() {
 Rhombus addRhombus(PVector center) {
 	ArrayList<PVector> p = new ArrayList<PVector>();
 	
-	float rho_radius = rho_dia/2;
+	float radius = sideLength*sqrt(2)/2;
 	
 	for (int i = 0; i < 4; i++) {
 		float angle = PI*i/2;
-		p.add(new PVector(center.x+cos(angle)*rho_radius, center.y+sin(angle)*rho_radius));
+		p.add(new PVector(center.x+cos(angle)*radius, center.y+sin(angle)*radius));
     }
 
 	Rhombus rhombus = new Rhombus(center, p);
@@ -88,6 +89,15 @@ Rhombus addRhombus(PVector center) {
 	rhombus.c = color(35 + rand, 37 + rand, 39 + rand);
 	
 	return rhombus;
+}
+
+/**
+ *  Determine, if given coordinates are inside a given rhombus
+ *	tba.
+ */
+boolean isInside(Rhombus rhombus, PVector p) {	
+	
+	return false;
 }
 
 void keyPressed() {
