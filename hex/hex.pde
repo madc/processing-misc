@@ -15,9 +15,6 @@ ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
 // The length of a side / radius of the hexagon
 final int sideLength = 20;
 
-int cols;
-int rows;
-
 void setup() {
 	size(800, 600, P2D);
 
@@ -53,7 +50,9 @@ void update() {
 	float hexagonWidth = 2*sideLength;
 	float hexagonHeight = 2*((sqrt(3)/2)*sideLength);
 		
-	cols = 0;
+	int cols = 0;
+	int rows;
+	
 	while((cols-1)*(hexagonWidth+sideLength) < width) {		
 		rows = 0;
 		while((rows-1)*(hexagonHeight/2) < height) {
