@@ -93,11 +93,13 @@ Hexagon addHexagon(PVector center) {
 
 /**
  *  Determine, if given coordinates are inside a given hexagon
- *	tba.
+ *  http://stackoverflow.com/a/5195868/709769
  */
-boolean isInside(Hexagon hexagon, PVector p) {	
-	
-	return false;
+boolean isInside(Hexagon hexagon, PVector p) {
+  float dx = abs(p.x - hexagon.center.x)/(sideLength*2);
+  float dy = abs(p.y - hexagon.center.y)/(sideLength*2);
+  float a = 0.25 * sqrt(3.0);
+  return (dy <= a) && (a*dx + 0.25*dy <= 0.5*a);
 }
 
 void keyPressed() {
